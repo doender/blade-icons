@@ -165,7 +165,7 @@ When working with Blade Icons, and third party icon sets in particular, you'll o
 php artisan icons:cache
 ```
 
-By default, this will create a `blade-icons.php` file in `bootstrap/cache` similar to the `packages.php` cached file. It'll contain a manifest of all known sets and icons with their path locations. The cache directory can be configured [here](#cache-directory).
+This will create a `blade-icons.php` file in `bootstrap/cache` similar to the `packages.php` cached file. It'll contain a manifest of all known sets and icons with their path locations.
 
 Caching icons means you won't be able to add extra icons, change paths for icon sets or install/remove icon packages. To do so make sure you first clear the icons cache and cache after you've made these changes:
 
@@ -375,18 +375,6 @@ return [
 This always needs to be an associative array.  Additionally, the same option is available in sets so you can set default attributes on every set.
 
 The sequence in which classes get applied is `default attributes / set attributes / explicit attributes` where the latter overwrites the former. It is not possible to overwrite existing attributes on SVG icons. If you already have attributes defined on icons which you want to override, remove them first.
-
-### Cache Directory
-
-By default, the icons cache file is stored in the `bootstrap/cache` directory. If you want to store it in a different directory you can set the `cache_dir` option in your `blade-icons.php` config file:
-
-```php
-<?php
-
-return [
-    'cache_dir' => '/tmp',
-];
-```
 
 ## Usage
 
