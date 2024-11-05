@@ -80,7 +80,8 @@ final class BladeIconsServiceProvider extends ServiceProvider
 
     private function manifestPath(): string
     {
-        return $this->app->bootstrapPath('cache/blade-icons.php');
+        $cacheDir = rtrim(config('blade-icons.cache_dir', $this->app->bootstrapPath('cache')), '/');
+        return $cacheDir . '/blade-icons.php';
     }
 
     private function bootCommands(): void

@@ -24,8 +24,13 @@ Turn...
 ```html
 <!-- camera.svg -->
 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+  <path
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+  />
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
 </svg>
 ```
 
@@ -165,7 +170,7 @@ When working with Blade Icons, and third party icon sets in particular, you'll o
 php artisan icons:cache
 ```
 
-This will create a `blade-icons.php` file in `bootstrap/cache` similar to the `packages.php` cached file. It'll contain a manifest of all known sets and icons with their path locations.
+By default, this will create a `blade-icons.php` file in `bootstrap/cache` similar to the `packages.php` cached file. It'll contain a manifest of all known sets and icons with their path locations. The cache directory can be configured [here](#cache-directory).
 
 Caching icons means you won't be able to add extra icons, change paths for icon sets or install/remove icon packages. To do so make sure you first clear the icons cache and cache after you've made these changes:
 
@@ -219,7 +224,7 @@ return [
 ];
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > Always make sure you're pointing to existing directories.
 
 #### Multiple Paths
@@ -372,9 +377,21 @@ return [
 ];
 ```
 
-This always needs to be an associative array.  Additionally, the same option is available in sets so you can set default attributes on every set.
+This always needs to be an associative array. Additionally, the same option is available in sets so you can set default attributes on every set.
 
 The sequence in which classes get applied is `default attributes / set attributes / explicit attributes` where the latter overwrites the former. It is not possible to overwrite existing attributes on SVG icons. If you already have attributes defined on icons which you want to override, remove them first.
+
+### Cache Directory
+
+By default, the icons cache file is stored in the `bootstrap/cache` directory. If you want to store it in a different directory you can set the `cache_dir` option in your `blade-icons.php` config file:
+
+```php
+<?php
+
+return [
+    'cache_dir' => '/tmp',
+];
+```
 
 ## Usage
 
@@ -444,7 +461,11 @@ Then, in your JavaScript, create an `svg` element with `use` and `href="#icon-{y
 
 ```javascript
 function icon() {
-    return <svg><use href="#icon-my-custom-hash"></use></svg>
+  return (
+    <svg>
+      <use href="#icon-my-custom-hash"></use>
+    </svg>
+  );
 }
 ```
 
@@ -566,17 +587,13 @@ Example usage:
 Example result:
 
 ```html
-<svg 
-	 title="Camera" 
-	 role="img" 
-	 xmlns="http://www.w3.org/2000/svg"
-	 viewBox="0 0 448 512"
->
-	<title>
-		Camera
-	</title>
-	<path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
-</svg>  
+<svg title="Camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+  <title>Camera</title>
+  <path
+    fill="currentColor"
+    d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+  ></path>
+</svg>
 ```
 
 If your icon does not have semantic meaning, you may want to hide the icon to reduce overall document clutter. You may do this by adding `aria-hidden="true"` to your icon.

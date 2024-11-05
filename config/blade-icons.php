@@ -180,4 +180,15 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Directory
+    |--------------------------------------------------------------------------
+    |
+    | This config option allows you define the directory where the cached manifest is stored.
+    |
+    */
+
+    'cache_dir' => '',
+
 ];
